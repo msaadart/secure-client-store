@@ -1,9 +1,9 @@
 {
   "name": "secure-client-store",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Universal client-side AES-GCM encryption for browsers & Node (works with React/Vue/Angular)",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
@@ -39,5 +39,11 @@
     "type": "git",
     "url": "git+https://github.com/msaadart/secure-client-store.git"
   },
-  "homepage": "https://github.com/msaadart/secure-client-store#readme"
+  "homepage": "https://github.com/msaadart/secure-client-store#readme",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  }
 }
