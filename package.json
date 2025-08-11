@@ -1,6 +1,6 @@
 {
   "name": "secure-client-store",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Universal client-side AES-GCM encryption for browsers & Node (works with React/Vue/Angular)",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup src/index.ts --format esm,cjs --dts --minify",
     "clean": "rimraf dist",
     "prepare": "npm run build"
   },
@@ -29,7 +29,7 @@
   "devDependencies": {
     "@types/node": "^24.2.1",
     "rimraf": "^3.0.2",
-    "tsup": "^6.0.0",
+    "tsup": "^8.5.0",
     "typescript": "^5.0.0"
   },
   "publishConfig": {
@@ -45,5 +45,6 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js"
     }
-  }
+  },
+  "sideEffects": false
 }
