@@ -1,0 +1,35 @@
+{
+  "name": "secure-client-store",
+  "version": "0.0.1",
+  "description": "Universal client-side AES-GCM encryption for browsers & Node (works with React/Vue/Angular)",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "clean": "rimraf dist",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "encryption",
+    "aes",
+    "webcrypto",
+    "client",
+    "typescript",
+    "react",
+    "vue",
+    "angular",
+    "universal"
+  ],
+  "author": "Muhammad Saad Nasir",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.2.1",
+    "rimraf": "^3.0.2",
+    "tsup": "^6.0.0",
+    "typescript": "^5.0.0"
+  }
+}
