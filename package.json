@@ -1,6 +1,6 @@
 {
   "name": "secure-client-store",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Universal client-side AES-GCM encryption for browsers & Node (works with React/Vue/Angular)",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
