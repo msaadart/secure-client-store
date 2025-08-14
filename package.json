@@ -1,6 +1,6 @@
 {
   "name": "secure-client-store",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Universal client-side AES-GCM encryption for browsers & Node (works with React/Vue/Angular)",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -11,7 +11,8 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --minify",
     "clean": "rimraf dist",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "test": "ts-node src/test.ts"
   },
   "keywords": [
     "encryption",

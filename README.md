@@ -22,6 +22,22 @@ Perfect for securely storing sensitive client-side data.
 npm install secure-client-store
 
 ```
+## Default behavior (auto-generate + store key)
+```
+const store = new SecureStore();
+await store.initializeKey();
+const encrypted = await store.encrypt("secret");
+
+```
+## With custom user-provided key
+```
+// Must be a 256-bit (32-byte) base64 string
+const myKey = "aW5zZWN1cmVfMzJfYnl0ZV9iYXNlNjRfZGF0YQ==";
+
+const store = new SecureStore({ userKey: myKey });
+await store.initializeKey();
+const encrypted = await store.encrypt("secret");
+```
 
 ## React (functional component)
 ```
@@ -76,4 +92,36 @@ export class SecureService {
   encrypt(text: string) { return this.store.encrypt(text); }
   decrypt(ct: string) { return this.store.decrypt(ct); }
 }
+```
+```
+secure-client-store
+├─ .npmignore
+├─ .npmrc
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ src
+│  ├─ env.ts
+│  ├─ index.ts
+│  ├─ secureStore.ts
+│  └─ storageAdapters.ts
+├─ tsconfig.json
+└─ tsup.config.ts
+
+```
+```
+secure-client-store
+├─ .npmignore
+├─ .npmrc
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ src
+│  ├─ env.ts
+│  ├─ index.ts
+│  ├─ secureStore.ts
+│  └─ storageAdapters.ts
+├─ tsconfig.json
+└─ tsup.config.ts
+
 ```
