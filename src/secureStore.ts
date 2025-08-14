@@ -22,6 +22,7 @@ export type SecureStoreOptions = {
   storageAdapter?: StorageAdapter;
   storageKeyName?: string;
   autoClearTimeout?: number;
+  userKey?: string; // NEW: allow user to provide their own key (base64 string or raw Uint8Array)
 };
 
 export class SecureStore {
@@ -31,29 +32,44 @@ export class SecureStore {
   private storageKeyName: string;
   private timeoutId: any = null;
   private autoClearDefault = 9 * 60 * 60 * 1000; // 9 hours
+  private userKey?: string; // NEW
 
   constructor(opts?: SecureStoreOptions) {
     this.subtle = getSubtleCrypto();
     this.adapter = opts?.storageAdapter ?? (isBrowser ? new BrowserStorageAdapter() : new NodeFsStorageAdapter());
     this.storageKeyName = opts?.storageKeyName ?? STORAGE_KEY;
     if (opts?.autoClearTimeout) this.autoClearDefault = opts.autoClearTimeout;
+    if (opts?.userKey) this.userKey = opts.userKey; // store user key
   }
 
   // Initialize key if not already present
   async initializeKey(): Promise<void> {
     if (this.key) return;
+
+    if (this.userKey) {
+      const raw = base64ToU8(this.userKey).buffer;
+      this.key = await this.subtle.importKey(
+        "raw",
+        raw,
+        { name: "AES-GCM", length: 256 },
+        true,
+        ["encrypt", "decrypt"]
+      );
+      return; // Skip generation
+    }
+
     const stored = await this.adapter.getItem(this.storageKeyName);
     if (stored) {
-      // import raw key
       const raw = base64ToU8(stored).buffer;
       this.key = await this.subtle.importKey("raw", raw, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
     } else {
-      const rawKey = this.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
-      this.key = await rawKey;
+      const rawKey = await this.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+      this.key = rawKey;
       const exported = await this.subtle.exportKey("raw", this.key);
       await this.adapter.setItem(this.storageKeyName, bufToBase64(exported));
     }
   }
+
 
   /** Encrypt string -> base64 (iv + ciphertext) */
   async encrypt(data: string): Promise<string> {
@@ -102,4 +118,13 @@ export class SecureStore {
   setStorageAdapter(adapter: StorageAdapter) {
     this.adapter = adapter;
   }
+
+
+  async getCurrentKeyBase64(): Promise<string | null> {
+    if (!this.key) return null;
+    const raw = await this.subtle.exportKey("raw", this.key);
+    return bufToBase64(raw);
+  }
+
+
 }
