@@ -93,35 +93,3 @@ export class SecureService {
   decrypt(ct: string) { return this.store.decrypt(ct); }
 }
 ```
-```
-secure-client-store
-├─ .npmignore
-├─ .npmrc
-├─ package-lock.json
-├─ package.json
-├─ README.md
-├─ src
-│  ├─ env.ts
-│  ├─ index.ts
-│  ├─ secureStore.ts
-│  └─ storageAdapters.ts
-├─ tsconfig.json
-└─ tsup.config.ts
-
-```
-```
-secure-client-store
-├─ .npmignore
-├─ .npmrc
-├─ package-lock.json
-├─ package.json
-├─ README.md
-├─ src
-│  ├─ env.ts
-│  ├─ index.ts
-│  ├─ secureStore.ts
-│  └─ storageAdapters.ts
-├─ tsconfig.json
-└─ tsup.config.ts
-
-```

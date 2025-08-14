@@ -8,7 +8,9 @@
     "strict": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "declarationMap": false
   },
   "include": ["src"]
 }

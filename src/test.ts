@@ -20,7 +20,7 @@ async function testSecureStore() {
 }
 
 testSecureStore();
-
+//npx ts-node src/test.ts
 
 
 
